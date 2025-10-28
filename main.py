@@ -18,6 +18,7 @@ set_target_fps(10) #Nombre d'images par secondes
 while not window_should_close(): #tant qu'on ferme pas la fenêtre
     begin_drawing() #ça commence à dessiner
     clear_background(BLACK)    
+    
     if is_key_pressed(KEY_UP) :
         vitesse = [0,-1]
     if is_key_pressed(KEY_DOWN) :
