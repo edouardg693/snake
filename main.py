@@ -12,8 +12,13 @@ snake = [   #on représente le serpent
 ]
 
 s=0 #score
+
+
 vitesse = [0,1]
 fruit = [WIDTH//2,HEIGHT//2]
+super_fruit = [random.randint(0,WIDTH-1),
+                 random.randint(0,HEIGHT-1)]
+compteur_super_fruit = 0
 perdu = False
 
 init_window(SIDE * WIDTH, SIDE * HEIGHT, "Mon jeu") #ouvre une fenêtre
@@ -39,7 +44,9 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
         draw_rectangle(x*SIDE+1,y*SIDE+1,SIDE-2,SIDE-2,color)
     draw_rectangle(fruit[0]*SIDE,fruit[1]*SIDE,SIDE,SIDE,BLUE)
     draw_text(f"Score : {s}",5,0,50,WHITE) 
-    
+    if compteur_super_fruit == 3 :
+        draw_rectangle(super_fruit[0]*SIDE,super_fruit[1]*SIDE,SIDE,SIDE,YELLOW)
+        compteur_super_fruit = 0
     #ANIMATION 
     vx,vy = vitesse
     hx,hy = snake[-1]
@@ -49,8 +56,15 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
                  random.randint(0,HEIGHT-1)]
         snake = snake + [new_head]
         s=s+10
+        compteur_super_fruit +=1
        
+    elif new_head == super_fruit :
+        super_fruit = [random.randint(0,WIDTH-1),
+                 random.randint(0,HEIGHT-1)]
+        snake = snake + [new_head]
+        s=s+100
 
+        
     else : 
         snake = snake[1:] + [new_head]
 
