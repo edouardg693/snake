@@ -56,10 +56,14 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
 
     #FIN DE PARTIE
 
-    if new_head[0]<0 or new_head[0]>=WIDTH :
-        draw_text("GAME OVER",(WIDTH*SIDE)//8,(HEIGHT*SIDE)//2,100,RED)
-    elif new_head[1]<0 or new_head[1]>=HEIGHT :
-        draw_text("GAME OVER",(WIDTH*SIDE)//8,(HEIGHT*SIDE)//2,100,RED)
+    if new_head[0]<0 :
+        new_head[0]=WIDTH
+    elif new_head[0]>=WIDTH :
+        new_head[0]=0
+    elif new_head[1]<0 :
+        new_head[1]= HEIGHT
+    elif new_head[1]>=HEIGHT :
+        new_head[1]=0
     elif new_head in snake[:-1] :
         draw_text("GAME OVER",(WIDTH*SIDE)//8,(HEIGHT*SIDE)//2,100,RED)
 
