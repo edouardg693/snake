@@ -28,6 +28,13 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
     begin_drawing() #ça commence à dessiner
     clear_background(BLACK)    
     
+    #EN CAS DE FIN DE PARTIE
+    if perdu:
+        draw_text("GAME OVER", (WIDTH * SIDE) // 8, (HEIGHT * SIDE) // 2, 100, RED)
+        draw_text(f"Score : {s}", 5, 0, 50, WHITE)
+        end_drawing()
+        continue 
+
     #DETECTION DES TOUCHES
     if is_key_pressed(KEY_UP) and vitesse != [0,1] :
         vitesse = [0,-1]
@@ -44,10 +51,11 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
         draw_rectangle(x*SIDE+1,y*SIDE+1,SIDE-2,SIDE-2,color)
     draw_rectangle(fruit[0]*SIDE,fruit[1]*SIDE,SIDE,SIDE,BLUE)
     draw_text(f"Score : {s}",5,0,50,WHITE) 
-    if compteur_super_fruit == 3 :
+    if compteur_super_fruit >= 5 :
         draw_rectangle(super_fruit[0]*SIDE,super_fruit[1]*SIDE,SIDE,SIDE,YELLOW)
-        compteur_super_fruit = 0
-    #ANIMATION 
+        
+    
+    #ANIMATION ET COMPTAGE DU SCORE
     vx,vy = vitesse
     hx,hy = snake[-1]
     new_head = [hx+vx, hy+vy]
@@ -63,12 +71,13 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
                  random.randint(0,HEIGHT-1)]
         snake = snake + [new_head]
         s=s+100
+        compteur_super_fruit = 0
 
         
     else : 
         snake = snake[1:] + [new_head]
 
-    #FIN DE PARTIE
+    #JEU CIRCULAIRE ET CONDITION FIN DE PARTIE
 
     if new_head[0]<0 :
         new_head[0]=WIDTH
@@ -79,11 +88,8 @@ while not window_should_close(): #tant qu'on ferme pas la fenêtre
     elif new_head[1]>=HEIGHT :
         new_head[1]=0
     elif new_head in snake[:-1] :
-        draw_text("GAME OVER",(WIDTH*SIDE)//8,(HEIGHT*SIDE)//2,100,RED)
-
-
-    end_drawing() #ça arrête de dessiner
-
+        perdu = True
+    end_drawing()
 
 
 
